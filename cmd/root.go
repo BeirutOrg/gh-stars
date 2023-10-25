@@ -144,7 +144,7 @@ func RenderJsonOutput(results pq.PriorityQueue, limit int, renderTarget io.Write
 		repos = append(repos, item.Value.(Repo))
 	}
 
-	jsonOutput, err := json.MarshalIndent(repos, "", "  ")
+	jsonOutput, err := json.MarshalIndent(repos, "", "    ")
 	if err != nil {
 		return err
 	}

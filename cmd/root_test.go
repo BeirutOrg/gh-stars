@@ -360,7 +360,79 @@ func TestRender(t *testing.T) {
 			inputOverride: true,
 			limit:         -1,
 			wantErr:       false,
-			want:          `[{"name":"gatekeeper-0","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-0","Owner":{"login":"","url":""},"description":"A gatekeeper-0 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-1","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-1","Owner":{"login":"","url":""},"description":"A gatekeeper-1 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-2","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-2","Owner":{"login":"","url":""},"description":"A gatekeeper-2 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-3","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-3","Owner":{"login":"","url":""},"description":"A gatekeeper-3 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-4","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-4","Owner":{"login":"","url":""},"description":"A gatekeeper-4 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null}]`,
+			want: `[
+    {
+        "name": "gatekeeper-0",
+        "full_name": "",
+        "private": false,
+        "html_url": "https://github.com/gatekeeper/gatekeeper-0",
+        "Owner": {
+            "login": "",
+            "url": ""
+        },
+        "description": "A gatekeeper-0 for your GitHub organization",
+        "fork": false,
+        "stargazers_count": 0,
+        "topics": null
+    },
+    {
+        "name": "gatekeeper-1",
+        "full_name": "",
+        "private": false,
+        "html_url": "https://github.com/gatekeeper/gatekeeper-1",
+        "Owner": {
+            "login": "",
+            "url": ""
+        },
+        "description": "A gatekeeper-1 for your GitHub organization",
+        "fork": false,
+        "stargazers_count": 0,
+        "topics": null
+    },
+    {
+        "name": "gatekeeper-2",
+        "full_name": "",
+        "private": false,
+        "html_url": "https://github.com/gatekeeper/gatekeeper-2",
+        "Owner": {
+            "login": "",
+            "url": ""
+        },
+        "description": "A gatekeeper-2 for your GitHub organization",
+        "fork": false,
+        "stargazers_count": 0,
+        "topics": null
+    },
+    {
+        "name": "gatekeeper-3",
+        "full_name": "",
+        "private": false,
+        "html_url": "https://github.com/gatekeeper/gatekeeper-3",
+        "Owner": {
+            "login": "",
+            "url": ""
+        },
+        "description": "A gatekeeper-3 for your GitHub organization",
+        "fork": false,
+        "stargazers_count": 0,
+        "topics": null
+    },
+    {
+        "name": "gatekeeper-4",
+        "full_name": "",
+        "private": false,
+        "html_url": "https://github.com/gatekeeper/gatekeeper-4",
+        "Owner": {
+            "login": "",
+            "url": ""
+        },
+        "description": "A gatekeeper-4 for your GitHub organization",
+        "fork": false,
+        "stargazers_count": 0,
+        "topics": null
+    }
+]
+`,
 		},
 	}
 
