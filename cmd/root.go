@@ -129,6 +129,30 @@ func Render(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
 	}
 }
 
+func RenderJsonOutput(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
+	InfoLogger.Println("Rendering the results in JSON format")
+
+	if results.Len() > limit {
+		InfoLogger.Printf("Results: %d are higher than the limit: %d \n", results.Len(), limit)
+	}
+
+	renderLimit := RenderLimit(results.Len(), limit)
+
+	var repos []Repo
+	for i := 0; i < renderLimit; i++ {
+		item := heap.Pop(&results).(*pq.Item)
+		repos = append(repos, item.Value.(Repo))
+	}
+
+	jsonOutput, err := json.MarshalIndent(repos, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	fmt.Fprintln(renderTarget, string(jsonOutput))
+	return nil
+}
+
 func RenderTable(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
 	InfoLogger.Println("Rendering the results in table format")
 
@@ -157,31 +181,6 @@ func RenderTable(results pq.PriorityQueue, limit int, renderTarget io.Writer) er
 	if err != nil {
 		return err
 	}
-	return nil
-}
-
-// RenderJsonOutput renders the results in JSON format
-func RenderJsonOutput(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
-	InfoLogger.Println("Rendering the results in JSON format")
-
-	if results.Len() > limit {
-		InfoLogger.Printf("Results: %d are higher than the limit: %d \n", results.Len(), limit)
-	}
-
-	renderLimit := RenderLimit(results.Len(), limit)
-
-	var repos []Repo
-	for i := 0; i < renderLimit; i++ {
-		item := heap.Pop(&results).(*pq.Item)
-		repos = append(repos, item.Value.(Repo))
-	}
-
-	jsonOutput, err := json.Marshal(repos)
-	if err != nil {
-		return err
-	}
-
-	fmt.Fprintf(renderTarget, "%s", jsonOutput)
 	return nil
 }
 
