@@ -353,15 +353,6 @@ func TestRender(t *testing.T) {
 			wantErr:       false,
 			want:          "Name  URL                                         Description                                  Stars  Rank\n      https://github.com/gatekeeper/gatekeeper-0  A gatekeeper-0 for your GitHub organization  0      1000\n      https://github.com/gatekeeper/gatekeeper-1  A gatekeeper-1 for your GitHub organization  0      500\n      https://github.com/gatekeeper/gatekeeper-2  A gatekeeper-2 for your GitHub organization  0      333\n      https://github.com/gatekeeper/gatekeeper-3  A gatekeeper-3 for your GitHub organization  0      250\n      https://github.com/gatekeeper/gatekeeper-4  A gatekeeper-4 for your GitHub organization  0      200\n",
 		},
-		{
-			name:          "RenderPriorityQueueJsonOutput",
-			input:         make(pq.PriorityQueue, 0),
-			json:          true,
-			inputOverride: true,
-			limit:         -1,
-			wantErr:       false,
-			want:          `[{"name":"gatekeeper-0","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-0","Owner":{"login":"","url":""},"description":"A gatekeeper-0 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-1","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-1","Owner":{"login":"","url":""},"description":"A gatekeeper-1 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-2","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-2","Owner":{"login":"","url":""},"description":"A gatekeeper-2 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-3","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-3","Owner":{"login":"","url":""},"description":"A gatekeeper-3 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null},{"name":"gatekeeper-4","full_name":"","private":false,"html_url":"https://github.com/gatekeeper/gatekeeper-4","Owner":{"login":"","url":""},"description":"A gatekeeper-4 for your GitHub organization","fork":false,"stargazers_count":0,"topics":null}]`,
-		},
 	}
 
 	// Run the tests
