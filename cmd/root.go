@@ -121,12 +121,10 @@ var rootCmd = &cobra.Command{
 }
 
 func Render(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
-	switch jsonOutput {
-	case true:
+	if jsonOutput {
 		return RenderJsonOutput(results, limit, renderTarget)
-	default:
-		return RenderTable(results, limit, renderTarget)
 	}
+	return RenderTable(results, limit, renderTarget)
 }
 
 func RenderJsonOutput(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
