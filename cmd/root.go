@@ -121,12 +121,7 @@ var rootCmd = &cobra.Command{
 }
 
 func Render(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
-	switch jsonOutput {
-	case true:
-		return RenderJsonOutput(results, limit, renderTarget)
-	default:
-		return RenderTable(results, limit, renderTarget)
-	}
+	return RenderTable(results, limit, renderTarget)
 }
 
 func RenderTable(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
@@ -157,31 +152,6 @@ func RenderTable(results pq.PriorityQueue, limit int, renderTarget io.Writer) er
 	if err != nil {
 		return err
 	}
-	return nil
-}
-
-// RenderJsonOutput renders the results in JSON format
-func RenderJsonOutput(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
-	InfoLogger.Println("Rendering the results in JSON format")
-
-	if results.Len() > limit {
-		InfoLogger.Printf("Results: %d are higher than the limit: %d \n", results.Len(), limit)
-	}
-
-	renderLimit := RenderLimit(results.Len(), limit)
-
-	var repos []Repo
-	for i := 0; i < renderLimit; i++ {
-		item := heap.Pop(&results).(*pq.Item)
-		repos = append(repos, item.Value.(Repo))
-	}
-
-	jsonOutput, err := json.MarshalIndent(repos, "", "    ")
-	if err != nil {
-		return err
-	}
-
-	fmt.Fprintf(renderTarget, "%s", jsonOutput)
 	return nil
 }
 
