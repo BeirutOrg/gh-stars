@@ -121,6 +121,9 @@ var rootCmd = &cobra.Command{
 }
 
 func Render(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
+	if jsonOutput {
+		return RenderJSON(results, limit, renderTarget)
+	}
 	return RenderTable(results, limit, renderTarget)
 }
 
@@ -149,6 +152,41 @@ func RenderTable(results pq.PriorityQueue, limit int, renderTarget io.Writer) er
 		tp.EndRow()
 	}
 	err := tp.Render()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// RenderJSON returns the results in JSON format
+// RenderJSON renders the results from a priority queue in JSON format.
+// It takes a priority queue, a limit, and a render target as input parameters.
+// The function first checks if the number of results in the priority queue exceeds the limit.
+// If so, it logs a message indicating the number of results and the limit.
+// It then determines the render limit based on the number of results and the specified limit.
+// Next, it iterates over the priority queue and extracts the repos, storing them in a slice.
+// The repos are then marshaled into JSON format using the json.MarshalIndent function.
+// Finally, the JSON data is written to the render target.
+// If any error occurs during the process, it is returned.
+func RenderJSON(results pq.PriorityQueue, limit int, renderTarget io.Writer) error {
+	InfoLogger.Println("Rendering the results in JSON format")
+
+	if results.Len() > limit {
+		InfoLogger.Printf("Results: %d are higher than the limit: %d \n", results.Len(), limit)
+	}
+
+	renderLimit := RenderLimit(results.Len(), limit)
+
+	var repos []Repo
+	for i := 0; i < renderLimit; i++ {
+		item := heap.Pop(&results).(*pq.Item)
+		repos = append(repos, item.Value.(Repo))
+	}
+	jsonRepos, err := json.MarshalIndent(repos, "", "    ")
+	if err != nil {
+		return err
+	}
+	_, err = renderTarget.Write(jsonRepos)
 	if err != nil {
 		return err
 	}
